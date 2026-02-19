@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Solar System Explorer',
+  title: 'SolarSystemSim',
   description: 'Interactive 3D Solar System model and explorer'
 }
 
