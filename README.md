@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Solar System Explorer
 
-## Getting Started
+Interactive 3D solar system visualization built with Next.js and React Three Fiber.
 
-First, run the development server:
+## Local Development
+
+Run from the app directory:
 
 ```bash
+cd solarsys-app
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Dev server runs on `http://localhost:3026`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Vercel CI/CD Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This repo is configured with:
 
-## Learn More
+- Vercel project config: `vercel.json`
+- Vercel ignore rules: `.vercelignore`
+- CI workflow: `.github/workflows/ci.yml`
+- Production deploy workflow: `.github/workflows/vercel-deploy.yml`
 
-To learn more about Next.js, take a look at the following resources:
+### 1) Connect Project to Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Push this repo to GitHub.
+2. In Vercel, click **Add New Project** and import the GitHub repo.
+3. Keep framework as **Next.js**.
+4. Complete first deploy.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2) Get Required Vercel IDs/Tokens
 
-## Deploy on Vercel
+From `solarsys-app` directory:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npx vercel login
+npx vercel link
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Then copy values from `.vercel/project.json`:
+
+- `orgId` → `VERCEL_ORG_ID`
+- `projectId` → `VERCEL_PROJECT_ID`
+
+Create a Vercel token at: https://vercel.com/account/tokens
+
+- Token value → `VERCEL_TOKEN`
+
+### 3) Add GitHub Repository Secrets
+
+In GitHub → **Settings → Secrets and variables → Actions**, add:
+
+- `VERCEL_TOKEN`
+- `VERCEL_ORG_ID`
+- `VERCEL_PROJECT_ID`
+
+### 4) Deployment Behavior
+
+- **CI** (`ci.yml`) runs on pushes + pull requests and performs install/build checks.
+- **Production Deploy** (`vercel-deploy.yml`) runs on pushes to `main` (or manual trigger).
+
+## Useful Commands
+
+```bash
+npm run build
+npm run lint
+```
