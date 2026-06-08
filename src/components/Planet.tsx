@@ -123,7 +123,7 @@ export default function Planet({
   const rotationY = useMemo(() => {
     const periodHours = data.siderealPeriodHours
     if (!periodHours) return 0
-    const j2000 = new Date(2000, 0, 1, 12, 0, 0)
+    const j2000 = new Date(Date.UTC(2000, 0, 1, 12, 0, 0))
     const elapsedHours = (simDate.getTime() - j2000.getTime()) / (1000 * 60 * 60)
     return ((2 * Math.PI) / periodHours) * elapsedHours
   }, [simDate, data.siderealPeriodHours])
